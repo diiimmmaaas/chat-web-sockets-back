@@ -1,14 +1,25 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
+const express = require("express");
+const http = require("http");
+const {Server} = require("socket.io");
 
-app.get('/', (req, res) => {
-    res.send("Hello, it's WS server");
+const app = express();
+const server = http.createServer(app);
+const socket = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000"
+    }
 });
 
-const PORT = process.env.PORT || 3009
+app.get("/", (req, res) => {
+    res.send("WS is started");
+});
+
+socket.on("connection", (socket) => {
+    console.log("a user connected");
+});
+
+const PORT = process.env.PORT || 3009;
 
 server.listen(PORT, () => {
-    console.log('listening on *:3000');
+    console.log("listening on *:3009");
 });
