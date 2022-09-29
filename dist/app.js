@@ -5,7 +5,8 @@ const server = http.createServer(app);
 app.get('/', (req, res) => {
     res.send("Hello, it's WS server");
 });
-server.listen(3009, () => {
+const PORT = process.env.PORT || 3009;
+server.listen(PORT, () => {
     console.log('listening on *:3000');
 });
 //# sourceMappingURL=app.js.map
